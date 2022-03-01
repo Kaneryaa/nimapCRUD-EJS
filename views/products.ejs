@@ -7,7 +7,7 @@
     </div>
 
 
-    <% if (foundData.length> 0) { %>
+    <% if (foundData.results.length> 0) { %>
         <div class="container">
 
             <table class="table-dark bg-dark rounded my-3">
@@ -18,33 +18,53 @@
                     <td class="h3">Product Name</td>
                 </thead>
                 <tbody>
-                    <% for(var i=0;i<foundData.length;i++){%>
+                    <% for(var i=0;i<foundData.results.length;i++){%>
                         <tr>
                             <td>
-                                <%=foundData[i].catid%>
+                                <%=foundData.results[i].catid%>
                             </td>
                             <td>
-                                <%=foundData[i].catname%>
+                                <%=foundData.results[i].catname%>
                             </td>
                             <td>
-                                <%=foundData[i]._id%>
+                                <%=foundData.results[i]._id%>
                             </td>
                             <td>
-                                <%=foundData[i].name%>
+                                <%=foundData.results[i].name%>
                             </td>
                             <td>
-                                <form action="/product/<%=foundData[i]._id%>/edit" method="GET">
+                                <form action="/product/<%=foundData.results[i]._id%>/edit" method="GET">
                                     <button class="btn btn-success btn-md">update</button>
                                 </form>
                             </td>
                             <td>
-                                <form action="/product/<%=foundData[i]._id%>?_method=delete" method="POST">
+                                <form action="/product/<%=foundData.results[i]._id%>?_method=delete" method="POST">
                                     <button class="btn btn-danger btn-md">delete</button>
                                 </form>
                                 <%}%>
                 </tbody>
             </table>
+            <% if (page==1) {%>
+                <button disabled class="btn btn-primary rounded-circle mx-3">&#8249;</button>
+                <%}else{ %>
+                    <a href="/product/?page=<%=parseInt(page)-1%>" class="previous round"><button
+                            class="btn btn-primary rounded-circle mx-3">&#8249;</button></a>
+                    <%}%>
+
+                        <p class="d-inline">
+                            <%= foundData.page%>
+                        </p>
+
+                        <% if (foundData.next==undefined) {%>
+                            <button disabled class="btn btn-primary rounded-circle mx-3">&#8250;</button>
+                            <%}else{ %>
+
+                                <a href="/product/?page=<%=(parseInt(page)+1)%>" class="next round"><button
+                                        class="btn btn-primary rounded-circle mx-3">&#8250;</button></a>
+                                <%}%>
         </div>
+
+
         <% }else{ %>
             <div class="container">
                 <h2 class="my-4">No Products in category right now </h2>
@@ -52,4 +72,4 @@
             </div>
             <% } %>
                 </div>
-<%- include("partials/footer") %>
+                <%- include("partials/footer") %>

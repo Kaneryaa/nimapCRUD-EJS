@@ -1,19 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const product = require("../models/Product")
+const paginatedResults = require("../middleware/pagination")
+
 
 
 // Get all products
-router.get("/", (req, res) => {
-    product.find({}, (err, foundData) => {
-        if (!err) {
-            res.render('products', {
-                foundData: foundData,
-            })
-        }
-        else {
-            console.log(err);
-        }
+router.get("/", paginatedResults(product),(req, res) => {
+
+    res.render('products', {
+        foundData: res.paginatedResults,
+         page:req.query.page||1,
     })
 })
 
