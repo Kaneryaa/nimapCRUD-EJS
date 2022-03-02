@@ -5,6 +5,7 @@ const paginatedResults = require("../middleware/pagination")
 
 
 
+
 // Get all products
 router.get("/", paginatedResults(product),(req, res) => {
 
@@ -15,16 +16,18 @@ router.get("/", paginatedResults(product),(req, res) => {
 })
 
 
+
 //Edit Product
 router.get("/:id/edit", (req, res) => {
     product.findById(req.params.id, (err, foundData) => {
         if (!err) {
+            console.log(foundData);
             res.render("editProduct", { foundData: foundData })   
         }
         else {
             console.log(err);
         }
-    })
+    }).populate("category")
 })
 
 

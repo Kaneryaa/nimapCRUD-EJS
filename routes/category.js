@@ -8,7 +8,7 @@ const paginatedResults = require("../middleware/pagination")
 //Get all Category 
 
 
-router.get("/", paginatedResults(category), (req, res) => {
+router.get("/", paginatedResults(category,category), (req, res) => {
     
     res.render('categories', {
         foundData: res.paginatedResults,
@@ -21,6 +21,7 @@ router.get("/", paginatedResults(category), (req, res) => {
         router.get("/:id", (req, res) => {
             category.findById(req.params.id, (err, foundData) => {
                 if (!err) {
+                    console.log(foundData);
                     res.render("category", { foundData: foundData })
                 }
                 else {
@@ -40,7 +41,7 @@ router.get("/", paginatedResults(category), (req, res) => {
                 else {
                     res.render("addProduct", { foundData: foundData, data })
                 }
-            });
+            })
         })
 
     })
@@ -58,7 +59,7 @@ router.get("/", paginatedResults(category), (req, res) => {
             if (!err) {
                 let catid = foundcategory._id;
                 let catname = foundcategory.name;
-                const data = { name: req.body.productName, catid: catid, catname: catname }
+                const data = { name: req.body.productName, catid: catid, catname: catname ,category:catid}
                 product.create(data, (err, foundproduct) => {
                     if (!err) {
                         foundcategory.products.push(foundproduct);
