@@ -10,13 +10,13 @@ const productSchema=new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'category'
     },
-    catid:{
-        type:String,
-    },
-    catname:
-    {
-        type:String
-    }
+    // catid:{
+    //     type:String,
+    // },
+    // catname:
+    // {
+    //     type:String
+    // }
 })
 
 module.exports=mongoose.model("product",productSchema);

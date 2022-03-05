@@ -58,8 +58,7 @@ router.get("/", paginatedResults(category,category), (req, res) => {
         category.findById(id, (err, foundcategory) => {
             if (!err) {
                 let catid = foundcategory._id;
-                let catname = foundcategory.name;
-                const data = { name: req.body.productName, catid: catid, catname: catname ,category:catid}
+                const data = { name: req.body.productName ,category:catid}
                 product.create(data, (err, foundproduct) => {
                     if (!err) {
                         foundcategory.products.push(foundproduct);
